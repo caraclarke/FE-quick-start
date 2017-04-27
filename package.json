@@ -1,0 +1,19 @@
+{
+  "name": "fe-quick-start",
+  "version": "1.0.0",
+  "description": "Quick Start FE Project w/ HTML/SCSS/Normalize/Gulp",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/caraclarke/FE-quick-start.git"
+  },
+  "author": "Cara Clarke",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/caraclarke/FE-quick-start/issues"
+  },
+  "homepage": "https://github.com/caraclarke/FE-quick-start#readme"
+}
