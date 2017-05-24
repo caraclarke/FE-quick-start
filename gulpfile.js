@@ -1,6 +1,7 @@
 var browserSync = require('browser-sync').create();
 var cache = require('gulp-cache');
 var cssnano = require('gulp-cssnano');
+var del = require('del');
 var gulp = require('gulp');
 var gulpIf = require('gulp-if');
 var imagemin = require('gulp-imagemin');
@@ -15,6 +16,16 @@ gulp.task('browserSync', function() {
       baseDir: 'app'
     },
   });
+});
+
+// clean up generated files
+gulp.task('clean:dist', function() {
+  return del.sync('dist');
+});
+
+// clear cache
+gulp.task('cache:clear', function(done) {
+  return cache.clearAll(done);
 });
 
 // minify images

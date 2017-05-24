@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/caraclarke/FE-quick-start#readme",
   "devDependencies": {
+    "del": "^2.2.2",
     "gulp": "^3.9.1",
     "gulp-cache": "^0.4.6",
     "gulp-cssnano": "^2.1.2",
