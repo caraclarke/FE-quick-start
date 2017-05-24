@@ -5,6 +5,7 @@ var del = require('del');
 var gulp = require('gulp');
 var gulpIf = require('gulp-if');
 var imagemin = require('gulp-imagemin');
+var runSequence = require('run-sequence');
 var sass = require('gulp-sass');
 var useref = require('gulp-useref');
 var uglify = require('gulp-uglify');
@@ -56,10 +57,22 @@ gulp.task('useref', function() {
     .pipe(gulp.dest('dist'))
 });
 
+// build
+gulp.task('build', function(cb) {
+  runSequence('clean:dist',
+    ['sass', 'useref', 'images'],
+  cb)
+});
+
 // watch
 gulp.task('watch', ['browserSync', 'sass', 'images'], function() {
   gulp.watch('app/scss/**/*.+(scss|css)', ['sass']);
   gulp.watch('app/img/**/*.+(png|jpg|gif|svg)', ['images']);
   gulp.watch('app/*.html', browserSync.reload);
   gulp.watch('app/js/**/*.js', browserSync.reload);
+});
+
+// default
+gulp.task('default', function(cb) {
+  runSequence(['sass','browserSync', 'watch'], cb)
 });
