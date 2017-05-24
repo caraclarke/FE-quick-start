@@ -1,4 +1,6 @@
+@import "base/variables";
+
 body {
-  background-color: #000;
-  color: #fff;
+  background-color: $neutral-black;
+  color: $neutral-white;
 }
