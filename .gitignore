@@ -3,5 +3,8 @@ node_modules/
 notes.txt
 .DS_Store
 
+# me #
+app/css/
+
 # temp #
 dist/
