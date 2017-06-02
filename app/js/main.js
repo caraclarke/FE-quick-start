@@ -1,1 +1,3 @@
-console.log("main.js says hello");
+const test = () => {
+  console.log('hello');
+};

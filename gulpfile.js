@@ -1,14 +1,18 @@
+var autoprefixer = require('gulp-autoprefixer');
 var browserSync = require('browser-sync').create();
+var babel = require('gulp-babel');
 var cache = require('gulp-cache');
 var cssnano = require('gulp-cssnano');
 var del = require('del');
+var eslint = require('gulp-eslint');
 var gulp = require('gulp');
 var gulpIf = require('gulp-if');
 var imagemin = require('gulp-imagemin');
 var runSequence = require('run-sequence');
 var sass = require('gulp-sass');
-var useref = require('gulp-useref');
+var styleLint = require('gulp-stylelint');
 var uglify = require('gulp-uglify');
+var useref = require('gulp-useref');
 
 // browser live reload
 gulp.task('browserSync', function() {
@@ -19,14 +23,19 @@ gulp.task('browserSync', function() {
   });
 });
 
+// clear cache
+gulp.task('cache:clear', function(done) {
+  return cache.clearAll(done);
+});
+
 // clean up generated files
 gulp.task('clean:dist', function() {
   return del.sync('dist');
 });
 
-// clear cache
-gulp.task('cache:clear', function(done) {
-  return cache.clearAll(done);
+// clean js file
+gulp.task('clean:js', function() {
+  return del.sync('js/build');
 });
 
 // minify images
@@ -34,6 +43,36 @@ gulp.task('images', function() {
   return gulp.src('app/img/**/*.+(png|jpg|gif|svg)')
     .pipe(cache(imagemin()))
     .pipe(gulp.dest('dist/img'))
+});
+
+// clean, lint, compile and minify js
+gulp.task('js', ['clean:js', 'lint'], function() {
+  return gulp.src('app/js/*.js')
+    .pipe(babel({
+      presets: ['es2015']
+    }))
+    .pipe(uglify())
+    .pipe(gulp.dest('app/js/build'))
+    .pipe(browserSync.reload({
+      stream: true
+    }))
+});
+
+gulp.task('lint', function () {
+  return gulp.src(['app/js/**/*.js', '!app/js/build', '!app/js/build/**'])
+    .pipe(eslint())
+    .pipe(eslint.format());
+});
+
+gulp.task('lint:sass', function () {
+  return gulp
+    .src('app/scss/**/*.scss')
+    .pipe(styleLint({
+      failAfterError: false,
+      reporters: [
+        {formatter: 'string', console: true}
+      ]
+    }));
 });
 
 // scss to css
