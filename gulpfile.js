@@ -51,7 +51,6 @@ gulp.task('js', ['clean:js', 'lint'], function() {
     .pipe(babel({
       presets: ['es2015']
     }))
-    .pipe(uglify())
     .pipe(gulp.dest('app/js/build'))
     .pipe(browserSync.reload({
       stream: true
@@ -76,7 +75,7 @@ gulp.task('lint:sass', function () {
 });
 
 // scss to css
-gulp.task('sass', function() {
+gulp.task('sass', ['lint:sass'], function() {
   return gulp.src('app/scss/**/*.+(scss|css)')
     .pipe(sass())
     .pipe(gulp.dest('app/css'))
@@ -96,11 +95,17 @@ gulp.task('useref', function() {
     .pipe(gulp.dest('dist'))
 });
 
+gulp.task('serve:build', ['build'], function() {
+  browserSync.init({
+    server: {
+      baseDir: 'build'
+    }
+  });
+});
+
 // build
 gulp.task('build', function(cb) {
-  runSequence('clean:dist',
-    ['sass', 'useref', 'images'],
-  cb)
+  runSequence('cache:clear', 'clean:dist', ['sass', 'js', 'images'], 'useref', cb);
 });
 
 // watch
