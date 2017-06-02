@@ -109,7 +109,7 @@ gulp.task('build', function(cb) {
 });
 
 // watch
-gulp.task('watch', ['browserSync', 'sass', 'images'], function() {
+gulp.task('watch', ['browserSync', 'sass', 'images', 'useref'], function() {
   gulp.watch('app/scss/**/*.+(scss|css)', ['sass']);
   gulp.watch('app/img/**/*.+(png|jpg|gif|svg)', ['images']);
   gulp.watch('app/*.html', browserSync.reload);
@@ -118,5 +118,5 @@ gulp.task('watch', ['browserSync', 'sass', 'images'], function() {
 
 // default
 gulp.task('default', function(cb) {
-  runSequence(['sass','browserSync', 'watch'], cb)
+  runSequence(['sass', 'js', 'browserSync', 'watch'], cb)
 });
