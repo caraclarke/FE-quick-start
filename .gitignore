@@ -4,7 +4,9 @@ notes.txt
 .DS_Store
 
 # me #
-app/css/
 
-# temp #
-dist/
+# ignore compiled js/css file in app folder #
+app/css/main.css
+app/js/build
+# dont need because committing build index.html #
+app/index.html
