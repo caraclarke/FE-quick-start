@@ -1,14 +1,16 @@
+/***************************
+  BASE
+****************************/
 @import "base/variables";
 
-body {
-  background-color: $dark-green;
-  color: $neutral-white;
-}
+/***************************
+  PARTIALS
+****************************/
 
-.chin {
-  border: 3px solid $neutral-white;
-}
-
-.img-circle {
-  border-radius: 50%;
+/***************************
+  RULES
+****************************/
+.icon {
+  padding: 5px 20px 5px 10px;
+  margin-right: 5px;
 }
